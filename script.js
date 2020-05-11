@@ -112,7 +112,7 @@ function resetButton(){
   sheet = sheets.getSheetByName("interface");
   sheet.activate();
   sheet.getRange(2,1).setValue("");
-  sheet.getRange(4,2).setValue("");
+  sheet.getRange(3,1).setValue("");
 
   
   sheet = sheets.getSheetByName("edit");
@@ -144,9 +144,50 @@ function mergeButton(){
   var json = merge(datafile, "edit");
   sheet.activate(); 
   sheet.getRange(2,1).setValue(json);
- 
+  var t = new Date();
+  t.setSeconds(t.getSeconds() + 30);
+  sheet.getRange(3,1).setValue(t);
 }
 
+function submitButton(){
+  var sheets = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = sheets.getSheetByName("interface");
+  sheet.activate();
+  var json = sheet.getRange(2,1).getValue();
+  if (json != ""){
+    var t = sheet.getRange(3,1).getValue();
+    openUrlAtMinTime('https://veertje-tools.toolforge.org/tab-temper/?gid=708517032&sid=2PACX-1vQFk15mzuvFeict0YA_TK4hgAswux6qCrl5EiM6pqvDDta75UMYjaU62WzwHzTIPvapADGVL47nSOhP', t);
   
-  
-  
+  }
+}
+
+function openUrlAtMinTime( url, countDownDate ){
+  var html = HtmlService.createHtmlOutput('<html><script>'
+
++'window.close = function(){window.setTimeout(function(){google.script.host.close()},9)};'
++'var countDownDate = new Date("'+countDownDate+'").getTime();'
++'var x = setInterval(function() {'
++'  var distance = countDownDate - new Date().getTime();'
++'  document.getElementById("demo").innerHTML = Math.floor((distance % (1000 * 60)) / 1000) + "s ";'
++'  if (distance < 0) {'
++'   clearInterval(x);'
++'   var a = document.createElement("a"); a.href="'+url+'"; a.target="_blank";'
++'   if(document.createEvent){'
++'     var event=document.createEvent("MouseEvents");'
++'     if(navigator.userAgent.toLowerCase().indexOf("firefox")>-1){window.document.body.append(a)}'                          
++'         event.initEvent("click",true,true); a.dispatchEvent(event);'
++'     }else{ a.click() }'
++'    a.text = "try to proceed";'
++'    document.getElementById("demo").innerHTML = "Failed to open automatically. " +a  ;'
+
++'   close();'
++'  }'
++'}, 1000);'
+  +'</script>'
+  // Offer URL as clickable link in case above code fails.
+  +'<body style="word-break:break-word;font-family:sans-serif;"><p id="demo">...</p></body>'
+  +'<script>google.script.host.setHeight(40);google.script.host.setWidth(410)</script>'
+  +'</html>')
+  .setWidth( 90 ).setHeight( 1 );
+  SpreadsheetApp.getUi().showModalDialog( html, "Opening ..." );
+}
