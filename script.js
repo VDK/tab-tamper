@@ -1,4 +1,6 @@
 
+var gid = "000000000";
+var sid = "2PACX-Very-long-string-of-characters";
 
 function init(datafile = "COVID-19 hospitalizations in Denmark.tab") {
   var response = fetchJSON(datafile);
@@ -156,7 +158,7 @@ function submitButton(){
   var json = sheet.getRange(2,1).getValue();
   if (json != ""){
     var t = sheet.getRange(3,1).getValue();
-    openUrlAtMinTime('https://veertje-tools.toolforge.org/tab-temper/?gid=708517032&sid=2PACX-1vQFk15mzuvFeict0YA_TK4hgAswux6qCrl5EiM6pqvDDta75UMYjaU62WzwHzTIPvapADGVL47nSOhP', t);
+    openUrlAtMinTime('https://veertje-tools.toolforge.org/tab-temper/?gid='+gid+'&sid='+sid, t);
   
   }
 }
