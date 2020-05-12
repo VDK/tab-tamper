@@ -1,6 +1,8 @@
 # tab-tamper
 Google SpreadsheetApp for editing tabular data from Wikimedia Commons
 
+[Workinig Demo](https://docs.google.com/spreadsheets/d/1M5d5hHoXSeT0UhBJ0SsL-uURAV0vtJDp3zz_oZ-k3g8/edit?usp=sharing)
+
 To install:
 
 * Under "Tools" > "Script editor" add the javascript
