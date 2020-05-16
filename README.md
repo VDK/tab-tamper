@@ -11,5 +11,4 @@ To install:
 * on "load" set A1 to <code>=init(interface!A1)</code>
 * on "interface" create three buttons insert > drawings 
 * right click on the button and assign the script "resetButton", "mergeButton" and "submitButton"
-* Under "File" > "Publish to the web" publish "interface" as a CSV file. Copy the identifiers found in this URL to the script.
 * use the resetButton once before first use
