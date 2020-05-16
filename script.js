@@ -1,6 +1,6 @@
 
-var gid = "000000000";
-var sid = "2PACX-Very-long-string-of-characters";
+var gid = "708517032";
+var sid = "2PACX-1vQFk15mzuvFeict0YA_TK4hgAswux6qCrl5EiM6pqvDDta75UMYjaU62WzwHzTIPvapADGVL47nSOhP";
 
 function init(datafile = "COVID-19 hospitalizations in Denmark.tab") {
   var response = fetchJSON(datafile);
@@ -157,39 +157,23 @@ function submitButton(){
   sheet.activate();
   var json = sheet.getRange(2,1).getValue();
   if (json != ""){
-    var t = sheet.getRange(3,1).getValue();
-    openUrlAtMinTime('https://veertje-tools.toolforge.org/tab-temper/?gid='+gid+'&sid='+sid, t);
-  
-  }
-}
-
-function openUrlAtMinTime( url, countDownDate ){
-  var html = HtmlService.createHtmlOutput('<html><script>'
-
-+'window.close = function(){window.setTimeout(function(){google.script.host.close()},9)};'
-+'var countDownDate = new Date("'+countDownDate+'").getTime();'
-+'var x = setInterval(function() {'
-+'  var distance = countDownDate - new Date().getTime();'
-+'  document.getElementById("demo").innerHTML = Math.floor((distance % (1000 * 60)) / 1000) + "s ";'
-+'  if (distance < 0) {'
-+'   clearInterval(x);'
-+'   var a = document.createElement("a"); a.href="'+url+'"; a.target="_blank";'
-+'   if(document.createEvent){'
-+'     var event=document.createEvent("MouseEvents");'
-+'     if(navigator.userAgent.toLowerCase().indexOf("firefox")>-1){window.document.body.append(a)}'                          
-+'         event.initEvent("click",true,true); a.dispatchEvent(event);'
-+'     }else{ a.click() }'
-+'    a.text = "try to proceed";'
-+'    document.getElementById("demo").innerHTML = "Failed to open automatically. " +a  ;'
-
-+'   close();'
-+'  }'
-+'}, 1000);'
+    var datafile = sheet.getRange(1,1).getValue();
+    datafile.replace("Data:" , "");
+    var html = HtmlService.createHtmlOutput('<html><script>'
+  +'window.close = function(){window.setTimeout(function(){google.script.host.close()},9)};'
   +'</script>'
-  // Offer URL as clickable link in case above code fails.
-  +'<body style="word-break:break-word;font-family:sans-serif;"><p id="demo">...</p></body>'
-  +'<script>google.script.host.setHeight(40);google.script.host.setWidth(410)</script>'
-  +'</html>')
+  +'<body style="word-break:break-word;font-family:sans-serif;">'
+  + '<form id="myForm" action="https://commons.wikimedia.org/w/index.php" method="post" target="_blank">'
+  + '	<input type="hidden" name="action" value="edit">'
+  + '	<input type="hidden" name="title" value="Data:'+datafile+'">'
+  + '  <input type="hidden" name="wpTextbox1" value=\''+json+'\'>'
+  + '  <input type="submit" name="submit" value="submit">'
+  + '</form>'
+ +'</body>' 
+  +'<script>google.script.host.setHeight(40);google.script.host.setWidth(410);'
++'</script>' 
+ +'</html>')
   .setWidth( 90 ).setHeight( 1 );
   SpreadsheetApp.getUi().showModalDialog( html, "Opening ..." );
+  }
 }
