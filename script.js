@@ -156,14 +156,14 @@ function submitButton(){
   var json = sheet.getRange(2,1).getValue();
   if (json != ""){
     var datafile = sheet.getRange(1,1).getValue();
-    datafile.replace("Data:" , "");
+    datafile = datafile.replace(/^[dD]ata:/, '');
     var html = HtmlService.createHtmlOutput('<html><script>'
   +'window.close = function(){window.setTimeout(function(){google.script.host.close()},9)};'
   +'</script>'
   +'<body style="word-break:break-word;font-family:sans-serif;">'
   + '<form id="myForm" action="https://commons.wikimedia.org/w/index.php" method="post" target="_blank">'
-  + '	<input type="hidden" name="action" value="edit">'
-  + '	<input type="hidden" name="title" value="Data:'+datafile+'">'
+  + '  <input type="hidden" name="action" value="edit">'
+  + '  <input type="hidden" name="title" value="Data:'+datafile+'">'
   + '  <input type="hidden" name="wpTextbox1" value=\''+json+'\'>'
   + '  <input type="submit" name="wpDiff" id="submit" value="submit">'
   + '</form>'
@@ -178,7 +178,10 @@ function submitButton(){
   +' close();})();'
   +'</script>' 
  +'</html>')
-  .setWidth( 90 ).setHeight( 1 );
+    .setWidth( 90 ).setHeight( 1 );
   SpreadsheetApp.getUi().showModalDialog( html, "Opening ..." );
+  }
+  else{
+    SpreadsheetApp.getUi().alert('Please first merge');
   }
 }
