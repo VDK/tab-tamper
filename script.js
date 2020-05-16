@@ -1,6 +1,4 @@
 
-var gid = "708517032";
-var sid = "2PACX-1vQFk15mzuvFeict0YA_TK4hgAswux6qCrl5EiM6pqvDDta75UMYjaU62WzwHzTIPvapADGVL47nSOhP";
 
 function init(datafile = "COVID-19 hospitalizations in Denmark.tab") {
   var response = fetchJSON(datafile);
@@ -167,11 +165,18 @@ function submitButton(){
   + '	<input type="hidden" name="action" value="edit">'
   + '	<input type="hidden" name="title" value="Data:'+datafile+'">'
   + '  <input type="hidden" name="wpTextbox1" value=\''+json+'\'>'
-  + '  <input type="submit" name="submit" value="submit">'
+  + '  <input type="submit" name="wpDiff" id="submit" value="submit">'
   + '</form>'
- +'</body>' 
-  +'<script>google.script.host.setHeight(40);google.script.host.setWidth(410);'
-+'</script>' 
+  +'</body>' 
+  +'<script>google.script.host.setHeight(40);google.script.host.setWidth(90);'
+  +'(function() {var element = document.getElementById("submit"); '
+  + 'if(document.createEvent){'
+  +'  var event=document.createEvent("MouseEvents");'                         
+  +'  event.initEvent("click",true,true); element.dispatchEvent(event);'
+  +'}else{'
+  +' element.click();}'
+  +' close();})();'
+  +'</script>' 
  +'</html>')
   .setWidth( 90 ).setHeight( 1 );
   SpreadsheetApp.getUi().showModalDialog( html, "Opening ..." );
