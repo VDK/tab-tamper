@@ -141,12 +141,9 @@ function mergeButton(){
   var sheet = sheets.getSheetByName("interface");
   sheet.activate();
   var datafile = sheet.getRange(1,1).getValue(); 
-  var json = merge(datafile, "edit");
+  var newJSON = merge(datafile, "edit");
   sheet.activate(); 
-  sheet.getRange(2,1).setValue(json);
-  var t = new Date();
-  t.setSeconds(t.getSeconds() + 30);
-  sheet.getRange(3,1).setValue(t);
+  sheet.getRange(2,1).setValue(newJSON);
 }
 
 function submitButton(){
