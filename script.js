@@ -154,6 +154,7 @@ function submitButton(){
   if (json != ""){
     var datafile = sheet.getRange(1,1).getValue();
     datafile = datafile.replace(/^[dD]ata:/, '');
+    var d = new Date();
     var html = HtmlService.createHtmlOutput('<html><script>'
   +'window.close = function(){window.setTimeout(function(){google.script.host.close()},9)};'
   +'</script>'
@@ -162,6 +163,7 @@ function submitButton(){
   + '  <input type="hidden" name="action" value="edit">'
   + '  <input type="hidden" name="title" value="Data:'+datafile+'">'
   + '  <input type="hidden" name="wpTextbox1" value=\''+json+'\'>'
+  + '  <input type="hidden" name="wpSummary" value=\'data of '+d.getFullYear()+"-"+months[d.getMonth()]+"-"+appendLeadingZeroes(d.getDate())+'\'>'
   + '  <input type="submit" name="wpDiff" id="submit" value="submit">'
   + '</form>'
   +'</body>' 
